@@ -1,0 +1,28 @@
+{
+    "name": "dtalk",
+    "main": "index.html",
+    "domain": "localhost",
+    "version": "3.2.3", 
+    "description": "钉钉-Linux版", 
+    "window": {
+        "title": "钉钉-Linux版",
+        "width": 1000,
+        "height": 602,
+        "max_width": 1000,
+        "max_height": 602,
+        "min_width": 1000,
+        "min_height": 602,
+        "as_desktop": true,
+        "resizable": false,
+        "show_in_taskbar": true,
+        "icon": "icon.png"
+    },
+    "webview": {
+        "partitions": [
+            {
+                "name": "trusted",
+                "accessible_resources": [ "<all_urls>" ]
+            }
+        ]
+  }
+}

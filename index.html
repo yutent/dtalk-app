@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<link rel="stylesheet" type="text/css" href="/css/base.css">
+<style type="text/css">
+    body {overflow:hidden;position:absolute;width:1000px;height:662px;}
+    .webview {display:block;width:1000px;height:602px;}
+</style>
+</head>
+<body>
+    
+<webview class="webview" src="https://im.dingtalk.com" partition="persist:googlepluswidgets"></webview>
+
+
+<script type="text/javascript">
+    let win = nw.Window.get();
+    let $wv = document.querySelector('.webview');
+    let tray = new nw.Tray({ title: '钉钉', icon: 'icon.png' });
+    let menu = new nw.Menu();
+    let show = new nw.MenuItem({label: '显示钉钉'})
+    let quit = new nw.MenuItem({label: '退出钉钉'})
+    show.click = function(){
+        win.show()
+    }
+    quit.click = function(){
+        win.close(true)
+    }
+    menu.append(show)
+    menu.append(quit)
+    tray.menu = menu
+
+    tray.on('click', function(){
+        win.show()
+    })
+
+    $wv.addEventListener('permissionrequest', function(ev) {
+        ev.request.allow();
+    });
+
+    function dialog(o, ev){
+        let res = o[ev.messageType](ev.messageText)
+        if(ev.messageType === 'confirm' || ev.messageType === 'prompt'){
+            if(res){
+                ev.dialog.ok(res);
+            }else{
+                ev.dialog.cancel();
+            }
+        }
+    }
+    $wv.addEventListener('dialog', function(ev) {
+        dialog(window, ev) 
+    });
+
+    $wv.addEventListener('newwindow', function(ev){
+
+        ev.preventDefault();
+
+        if(ev.targetUrl !== 'about:blank'){
+            nw.Window.open(ev.targetUrl, {width: 1200, height: 700, resizable: true})
+        }else{
+            let elem = document.createElement('webview');
+            elem.className = 'webview';
+            elem.addEventListener('permissionrequest', function(ev) {
+                ev.request.allow();
+            });
+            elem.setAttribute('partition', 'persist:googlepluswidgets')
+            ev.window.attach(elem)
+            nw.Window.open('blank.html', {width: 1200, height: 700, resizable: true, title: '钉钉邮箱'}, function(w){
+                elem.addEventListener('dialog', function(ev) {
+                    dialog(w.window, ev) 
+                });
+                w.window.addEventListener('load', function(){
+                    w.window.document.body.appendChild(elem)
+                })
+            })
+        }
+    })
+
+
+    $wv.addEventListener('contentload', function(ev){
+        $wv.executeScript({ code: `
+            nw.gui = nw.gui || nw;
+            let pwd = localStorage.getItem("pwd") || ''
+            localStorage.setItem("isBeepOpen", "true");
+            localStorage.setItem("notification", "true");
+            localStorage.setItem("newUserState", "secTip");
+            
+            
+            document.querySelectorAll('.tab-items li')[1].click()
+            
+            let $form = document.querySelector('form[name=passwordForm]'), $pwd;
+            for(let i = 0,el;el = $form.elements[i++];){
+                if(el.type === 'password'){
+                    $pwd = el;
+                    el.value = pwd;
+                    if(el.value){
+                        let ev = document.createEvent('Event')
+                        ev.initEvent('change', false, false)
+                        el.dispatchEvent(ev);
+                    }
+                    
+                }else if(el.type === 'submit'){
+                    el.onclick = function(){
+                        localStorage.setItem('pwd', $pwd.value)
+                    }
+                    // el.click()
+                }
+            }
+            `});
+    })
+
+    win.on('close', function(ev){
+        this.hide()
+    })
+    win.on('maximize', function(ev){
+        this.restore()
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors yutent (yutent@doui.cc)
+ * @date    2014-10-10 00:45:09
+ *
+ * doui的CSS规范
+ * 
+ * 不能出现大写,以连字符风格命名 
+ * 表示状态的应该用do-st-*命名 
+ * 表示功能的应该用do-fn-*命名
+ * 表示页面模块的应该用do-mod-modname 命名
+ * 表示UI组件的应该用do-uiname命名, 它的子元素应该全部包在 .do-uiname这个根类下
+ * 如 .do-layer .body { ... }
+ * 
+ * 样式规则的出现顺序
+ * 1 display float position overflow z-index 表示定位/布局的属性
+ * 2 width height margin padding border 表示盒子模型的属性
+ * 3 line-height font-size vertical-align text-align user-select outline ....排版相关的属性
+ * 4 color background opacity cursor ...表示装饰相关的属性
+ * 5 content list-style quotes ... 内容生成相关的属性
+ * 
+ */
+* {margin: 0;padding: 0;vertical-align: baseline;box-sizing:border-box;}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section,content {display: block;}
+img {border:0;display:inline-block;}
+ol, ul {list-style: none;}
+blockquote, q {quotes: none;}
+blockquote:before, blockquote:after,
+q:before, q:after {content: '';content: none;}
+table {border-collapse: collapse;border-spacing: 0;}
+
+.do-fn-cl { *zoom: 1; }
+.do-fn-cl:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; overflow:hidden;} 
+.do-fn-clear {clear:both;display:inline;}
+
+.do-fn-show{display:block;}
+.do-fn-hide{display:none;}
+.do-fn-fl{float:left;}
+.do-fn-fr{float:right;}
+.do-fn-noselect {-webkit-touch-callout: none;-webkit-user-select: none;-moz-user-select: none;user-select: none;}
+.do-fn-noselect img, .do-fn-noselect a {-webkit-user-drag:none;}
+.do-fn-ell {overflow:hidden; white-space:nowrap; text-overflow:ellipsis }
+.do-st-thin {-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
+.do-st-hand {cursor:pointer;}

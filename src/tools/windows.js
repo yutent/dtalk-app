@@ -22,9 +22,8 @@ exports.createMainWindow = function(icon) {
     icon,
     webPreferences: {
       webSecurity: false,
-      experimentalFeatures: true
-      // webviewTag: true,
-      // nodeIntegration: true
+      experimentalFeatures: true,
+      nodeIntegration: true
     },
     show: false
   })

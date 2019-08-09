@@ -1,28 +1,43 @@
 {
-    "name": "dtalk",
-    "main": "index.html",
-    "domain": "localhost",
-    "version": "3.2.3", 
-    "description": "钉钉-Linux版", 
-    "window": {
-        "title": "钉钉-Linux版",
-        "width": 1000,
-        "height": 602,
-        "max_width": 1000,
-        "max_height": 602,
-        "min_width": 1000,
-        "min_height": 602,
-        "as_desktop": true,
-        "resizable": false,
-        "show_in_taskbar": true,
-        "icon": "icon.png"
+  "name": "dtalk",
+  "version": "3.8.7",
+  "description": "钉钉-Linux版",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder"
+  },
+  "author": {
+    "name": "yutent",
+    "email": "yutent@doui.cc"
+  },
+  "devDependencies": {
+    "electron": "^6.0.0",
+    "electron-builder": "^21.2.0"
+  },
+  "build": {
+    "appId": "cc.doui.dtalk",
+    "productName": "DingDing",
+    "copyright": "Copyright © 2019 ${author}",
+    "directories": {
+      "buildResources": "icons",
+      "output": "build"
     },
-    "webview": {
-        "partitions": [
-            {
-                "name": "trusted",
-                "accessible_resources": [ "<all_urls>" ]
-            }
-        ]
-  }
+    "files": ["src/**/*"],
+    "linux": {
+      "category": "Network;Chat",
+      "target": [
+        {
+          "target": "deb",
+          "arch": "x64"
+        },
+        {
+          "target": "AppImage",
+          "arch": "x64"
+        }
+      ],
+      "icon": "./icons/"
+    }
+  },
+  "dependencies": {}
 }

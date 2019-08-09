@@ -1,0 +1,7 @@
+node_modules/
+build/
+icons/
+package-lock.json
+
+
+.D_Store

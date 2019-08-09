@@ -15,7 +15,10 @@
 
 
 ## 打包好的安装包
-请进入`release`页面下载.
+
+- [deb安装包](https://pan.baidu.com/s/1hkYoERjACvfTb_jup0zgJg) 提取码: c36t 
+
+- [appImage](https://pan.baidu.com/s/1MT7Gj-H30a-QP4Wo7rZ5Wg) 提取码: 86qt 
 
 
 ## 自行打包

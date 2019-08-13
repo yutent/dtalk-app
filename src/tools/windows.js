@@ -36,7 +36,7 @@ exports.createMainWindow = function(icon) {
   win.on('ready-to-show', _ => {
     win.show()
 
-    // win.openDevTools()
+    win.openDevTools()
   })
 
   win.webContents.on('dom-ready', ev => {
@@ -45,10 +45,11 @@ exports.createMainWindow = function(icon) {
 
       const shell = require('electron').shell;
 
-      // assuming $ is jQuery
       $(document).on('click', 'a[href^="http"]', function(event) {
-          event.preventDefault();
-          shell.openExternal(this.href);
+          if(!this.hasAttribute('nwdirectory')){
+            event.preventDefault();
+            shell.openExternal(this.href);
+          }
       });
 
       localStorage.setItem("isBeepOpen", "true");

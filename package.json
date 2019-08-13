@@ -1,6 +1,6 @@
 {
   "name": "dtalk",
-  "version": "3.8.7",
+  "version": "3.8.8",
   "description": "钉钉-Linux版",
   "main": "src/main.js",
   "scripts": {

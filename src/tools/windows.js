@@ -36,7 +36,7 @@ exports.createMainWindow = function(icon) {
   win.on('ready-to-show', _ => {
     win.show()
 
-    win.openDevTools()
+    // win.openDevTools()
   })
 
   win.webContents.on('dom-ready', ev => {
